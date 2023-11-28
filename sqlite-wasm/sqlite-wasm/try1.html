@@ -1,0 +1,54 @@
+// https://www.quora.com/What-is-the-best-way-to-display-data-from-an-SQLite-database-using-JavaScript-and-HTML
+//requiring the sqlite3 module
+<!DOCTYPE html>
+<html>
+<head>
+<title>Displaying SQLite Data</title>
+</head>
+<body>
+<table id="data-table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+</tr>
+</thead>
+<tbody id="data-body">
+<!-- Data will be dynamically added here -->
+</tbody>
+</table>
+<script>
+// Assuming you have already established a connection to the SQLite database
+// and stored it in a variable called `db`
+// Execute a query to retrieve data
+
+const sqlite3 = require('jswasm/sqlite3.js');
+const db = new sqlite3.Database('./dataset.sqlite');
+db.all("SELECT * FROM file", function(err, rows) {
+if (err) {
+console.error(err.message);
+return;
+}
+
+// Iterate over the retrieved data and format it as HTML
+var tableBody = document.getElementById("data-body");
+rows.forEach(function(row) {
+var tr = document.createElement("tr");
+var tdId = document.createElement("td");
+tdId.textContent = row.id;
+tr.appendChild(tdId);
+var tdName = document.createElement("td");
+tdName.textContent = row.name;
+tr.appendChild(tdName);
+var tdEmail = document.createElement("td");
+tdEmail.textContent = row.url;
+tr.appendChild(tdEmail);
+tableBody.appendChild(tr);
+});
+});
+
+</script>
+
+</body>
+</html>
