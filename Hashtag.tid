@@ -1,0 +1,18 @@
+created: 20240523021148242
+list-after: $:/core/ui/SideBar/Open
+modified: 20240523021300994
+tags: $:/tags/SideBar TOC
+title: Hashtag
+
+<ul>
+<$list filter="[all[missing]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
+	<li>
+		<$link to=<<hashtag>>/> <$count filter="[all[tiddlers]!is[system]search:text<hashtag>]"/>
+		<<list-links filter:"[all[tiddlers]!is[system]search:text<hashtag>]">>
+	</li>	
+</$list>
+</ul>
+
+---
+Usage: `[[#tag]]` but not `#tag` <br>
+Source: https://talk.tiddlywiki.org/t/rfc-providing-hash-tag-support-in-tiddlywikis/3473
