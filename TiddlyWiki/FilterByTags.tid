@@ -1,11 +1,13 @@
 created: 20240529031718057
-modified: 20240602051757499
+hashtag_pick: #biology #bioinfo
+modified: 20240602131902604
+skilltag_pick: [[%R: rentrez]]
 tags: TOC hello
 title: Filter by tags
 
 !! Hashtag
 !!! Click to toggle selection
-<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
+<$list filter="[all[missing+tiddlers]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
 <$button>
 <$action-listops $field="hashtag_pick" $subfilter="+[toggle<hashtag>]" />
 <<hashtag>>
@@ -17,7 +19,7 @@ title: Filter by tags
 Clear all
 </$button>
 <$button>
-<$action-listops $field="hashtag_pick" $subfilter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" />
+<$action-listops $field="hashtag_pick" $subfilter="[all[missing+tiddlers]!has[draft.of]regexp:title[^#]sort[title]]" />
 Select all
 </$button>
 
@@ -26,7 +28,7 @@ Select all
 <$list filter={{!!hashtag_pick}} variable=pick>
 <<pick>>
 <$list filter="[<pick>backlinks[]]">
-<$link to={{!!title}}><$view field="title"/></$link>
+<$link to={{!!title}}><$view field="title"/></$link>,
 </$list><br>
 </$list>
 </$list>
@@ -43,7 +45,7 @@ Select all
 ---
 !! Programming Tag
 !!! Click to toggle selection
-<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^%]sort[title]]" variable=skilltag>
+<$list filter="[all[missing+tiddlers]!has[draft.of]regexp:title[^%]sort[title]]" variable=skilltag>
 <$button>
 <$action-listops $field="skilltag_pick" $subfilter="+[toggle<skilltag>]" />
 <<skilltag>>
@@ -55,7 +57,7 @@ Select all
 Clear all
 </$button>
 <$button>
-<$action-listops $field="skilltag_pick" $subfilter="[all[orphans+missing+current]!has[draft.of]regexp:title[^%]sort[title]]" />
+<$action-listops $field="skilltag_pick" $subfilter="[all[missing+tiddlers]!has[draft.of]regexp:title[^%]sort[title]]" />
 Select all
 </$button>
 
@@ -64,7 +66,7 @@ Select all
 <$list filter={{!!skilltag_pick}} variable=pick>
 <<pick>>
 <$list filter="[<pick>backlinks[]]">
-<$link to={{!!title}}><$view field="title"/></$link>
+<$link to={{!!title}}><$view field="title"/></$link>,
 </$list><br>
 </$list>
 </$list>
