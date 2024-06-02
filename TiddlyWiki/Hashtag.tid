@@ -1,18 +1,27 @@
 created: 20240523021148242
 list-after: $:/core/ui/SideBar/Open
-modified: 20240523021300994
+modified: 20240531031426262
 tags: $:/tags/SideBar TOC
 title: Hashtag
 
+<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
+<<hashtag>>
+</$list>
+
+---
 <ul>
-<$list filter="[all[missing]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
+<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
 	<li>
-		<$link to=<<hashtag>>/> <$count filter="[all[tiddlers]!is[system]search:text<hashtag>]"/>
-		<<list-links filter:"[all[tiddlers]!is[system]search:text<hashtag>]">>
+		<$link to=<<hashtag>>/> <$count filter="[<hashtag>backlinks[]]"/><br>
+<$list filter="[<hashtag>backlinks[]]">
+<$link to={{!!title}}><$view field="title"/></$link>
+</$list>
+
 	</li>	
 </$list>
 </ul>
 
 ---
 Usage: `[[#tag]]` but not `#tag` <br>
-Source: https://talk.tiddlywiki.org/t/rfc-providing-hash-tag-support-in-tiddlywikis/3473
+Source: https://talk.tiddlywiki.org/t/rfc-providing-hash-tag-support-in-tiddlywikis/3473 <br>
+See also: https://tiddlywiki.com/static/Introduction%2520to%2520Lists.html
