@@ -1,11 +1,11 @@
 created: 20240529031718057
-hashtag_pick: #tool #like
-modified: 20240529044842661
+modified: 20240602051757499
 tags: TOC hello
 title: Filter by tags
 
-!! Click to toggle selection
-<$list filter="[all[missing]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
+!! Hashtag
+!!! Click to toggle selection
+<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
 <$button>
 <$action-listops $field="hashtag_pick" $subfilter="+[toggle<hashtag>]" />
 <<hashtag>>
@@ -16,31 +16,64 @@ title: Filter by tags
 <$action-deletefield hashtag_pick />
 Clear all
 </$button>
-
 <$button>
-<$action-listops $field="hashtag_pick" $subfilter="[all[missing]!has[draft.of]regexp:title[^#]sort[title]]" />
+<$action-listops $field="hashtag_pick" $subfilter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" />
 Select all
 </$button>
 
-<$list filter={{!!hashtag_pick}} variable=pick>
-<<pick>>
-</$list>
-
-!! Hit any
+!!! Hit any
 <$list filter="[has[hashtag_pick]]">
 <$list filter={{!!hashtag_pick}} variable=pick>
 <<pick>>
-<$list filter="[all[tiddlers]!is[system]search:text<pick>]">
+<$list filter="[<pick>backlinks[]]">
 <$link to={{!!title}}><$view field="title"/></$link>
 </$list><br>
 </$list>
 </$list>
 
-!! Hit all
+!!! Hit all
 <$list filter="[has[hashtag_pick]]">
-    <$set name=taglist value={{!!hashtag_pick}}>
-    <$list filter="[all[tiddlers]!is[system]search:text<taglist>]">
-        <$link to={{!!title}}><$view field="title"/></$link>
-    </$list>
-    </$set>
+<$list filter="[all[tiddlers]]" variable=main>
+<$set name=test value=`${ [<currentTiddler>get[hashtag_pick]] }$`>
+{{{ [<main>search:text<test>sort[]] }}} 
+</$set>
+</$list>
+</$list>
+
+---
+!! Programming Tag
+!!! Click to toggle selection
+<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^%]sort[title]]" variable=skilltag>
+<$button>
+<$action-listops $field="skilltag_pick" $subfilter="+[toggle<skilltag>]" />
+<<skilltag>>
+</$button>
+</$list>
+
+<$button>
+<$action-deletefield skilltag_pick />
+Clear all
+</$button>
+<$button>
+<$action-listops $field="skilltag_pick" $subfilter="[all[orphans+missing+current]!has[draft.of]regexp:title[^%]sort[title]]" />
+Select all
+</$button>
+
+!!! Hit any
+<$list filter="[has[skilltag_pick]]">
+<$list filter={{!!skilltag_pick}} variable=pick>
+<<pick>>
+<$list filter="[<pick>backlinks[]]">
+<$link to={{!!title}}><$view field="title"/></$link>
+</$list><br>
+</$list>
+</$list>
+
+!!! Hit all
+<$list filter="[has[skilltag_pick]]">
+<$list filter="[all[tiddlers]]" variable=main>
+<$set name=test value=`${ [<currentTiddler>get[skilltag_pick]] }$`>
+{{{ [<main>search:text<test>sort[]] }}} 
+</$set>
+</$list>
 </$list>
