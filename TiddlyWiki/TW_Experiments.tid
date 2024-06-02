@@ -1,0 +1,186 @@
+created: 20240529031718057
+hashtag_pick: #ML #stats #bioinfo
+modified: 20240601150849114
+skilltag_pick: [[%R: rentrez]] %R %Python
+tags: TOC hello
+title: Filter by tags
+
+\define wrap(b) [[$b$]]
+
+\define mysearch(c)
+{{{ [[Bioinformatics]search:text[$c$]] }}}
+\end
+
+!! 1
+<$list filter={{!!hashtag_pick}} variable="test">
+<<wrap "$(test)$" >>
+</$list>
+
+!! 2
+<$list filter={{!!skilltag_pick}} variable="test">
+<$set name=test2 value=<<wrap "$(test)$" >>>
+{{{ [[Bioinformatics]search:text<test2>] }}} <br>
+</$set>
+</$list>
+
+!! 2-2
+<$list filter={{!!skilltag_pick}} variable="test">
+{{{ [[Bioinformatics]links[]match<test>] }}} <br>
+</$list>
+
+!! 3
+<$list filter={{!!hashtag_pick}} variable="test">
+<$set name=test2 value=<<wrap "$(test)$" >>>
+{{{ [[Bioinformatics]search:text<test2>] }}} <br>
+</$set>
+</$list>
+
+!! 4
+<$list filter={{!!hashtag_pick}} variable="test">
+<$set name=test2 value=<<wrap "$(test)$" >>>
+<$count filter="[[Bioinformatics]search:text<test2>]" /> <br>
+</$set>
+</$list>
+
+!! 4-2
+<$count filter="[[Bioinformatics]links[]match[list[!!hashtag_pick]]]" />
+{{{ [[Bioinformatics]links[]match[list[!!hashtag_pick]]] }}} <br>
+{{{ a b c +[match[b]]}}} <br>
+<$count filter="[[Bioinformatics]links[]match[list[!!skilltag_pick]]]" />
+{{{ [Bioinformatics]links[]match[list[!!skilltag_pick]] }}}
+
+!! 5
+{{{ [[Bioinformatics]search:text[#stats scRNA-seq]] }}}
+
+!! 6
+{{{ [list[!!skilltag_pick]count[]] }}}
+
+!! 7
+<$text text=`"${ [<currentTiddler>get[hashtag_pick]] }$"`/>
+
+<$list filter="[!is[system]]" variable=main>
+<$set name=test value=`${ [<currentTiddler>get[hashtag_pick]] }$`>
+{{{ [<main>search:text<test>] }}} 
+</$set>
+</$list>
+
+!! 7-2
+<$set name=test value=`${ [<currentTiddler>get[skilltag_pick]] }$`>
+{{{ [[Bioinformatics]search:text<test>] }}}
+</$set>
+
+
+!! 8
+<$list filter={{!!hashtag_pick}} variable="test">
+{{{ [[Bioinformatics]search:text<<wrap "$(test)$" >>] }}}
+</$list>
+
+---
+
+!! Hi
+
+<$list filter={{!!skilltag_pick}} variable="test">
+<<mysearch <<wrap "$(test)$" >> >
+</$list>
+
+---
+
+<$set name=test value=<<wrap "$(test)$" >>>
+{{{ [[Bioinformatics]search:text<test>] }}}
+</$set>
+
+
+! Hashtag
+!! Click to toggle selection
+<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" variable=hashtag>
+<$button>
+<$action-listops $field="hashtag_pick" $subfilter="+[toggle<hashtag>]" />
+<<hashtag>>
+</$button>
+</$list>
+
+<$button>
+<$action-deletefield hashtag_pick />
+Clear all
+</$button>
+
+<$button>
+<$action-listops $field="hashtag_pick" $subfilter="[all[orphans+missing+current]!has[draft.of]regexp:title[^#]sort[title]]" />
+Select all
+</$button>
+
+<$set name="b" value={{!!hashtag_pick}}>
+<<wrap>>
+</$set>
+
+`contains` does not work with missing tiddlers
+
+---
+!! Hit any
+<$list filter="[has[hashtag_pick]]">
+<$list filter="[list[!!hashtag_pick]sort[]]" variable=pick>
+<<pick>>
+<$list filter="[<pick>backlinks[]sort[]]">
+<$link to={{!!title}}><$view field="title"/></$link>
+</$list><br>
+</$list>
+</$list>
+
+!! Hit all
+<$list filter="[all[tiddlers]]" variable=main>
+<$set name=test value=`${ [<currentTiddler>get[hashtag_pick]] }$`>
+{{{ [<main>search:text<test>sort[]] }}} 
+</$set>
+</$list>
+
+<!--
+<$list filter="[has[hashtag_pick]]">
+    <$set name=taglist value={{!!hashtag_pick}}>
+    <$list filter="[<taglist>backlinks[]]">
+        <$link to={{!!title}}><$view field="title"/></$link>
+    </$list>
+    </$set>
+</$list>
+-->
+---
+! Programming Tag
+!! Click to toggle selection
+<$list filter="[all[orphans+missing+current]!has[draft.of]regexp:title[^%]sort[title]]" variable=skilltag>
+<$button>
+<$action-listops $field="skilltag_pick" $subfilter="+[toggle<skilltag>]" />
+<<skilltag>>
+</$button>
+</$list>
+
+<$button>
+<$action-deletefield skilltag_pick />
+Clear all
+</$button>
+
+<$button>
+<$action-listops $field="skilltag_pick" $subfilter="[all[orphans+missing+current]!has[draft.of]regexp:title[^%]sort[title]]" />
+Select all
+</$button>
+
+<$list filter={{!!skilltag_pick}} variable=pick>
+<<pick>>
+</$list>
+
+!! Hit any
+<$list filter="[has[skilltag_pick]]">
+<$list filter={{!!skilltag_pick}} variable=pick>
+<<pick>>
+<$list filter="[<pick>backlinks[]]">
+<$link to={{!!title}}><$view field="title"/></$link>
+</$list><br>
+</$list>
+</$list>
+
+!! Hit all
+<$list filter="[has[skilltag_pick]]">
+    <$set name=taglist value={{!!skilltag_pick}}>
+    <$list filter="[<taglist>backlinks[]]">
+        <$link to={{!!title}}><$view field="title"/></$link>
+    </$list>
+    </$set>
+</$list>
