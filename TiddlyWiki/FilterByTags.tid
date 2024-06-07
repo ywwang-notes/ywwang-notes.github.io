@@ -1,6 +1,6 @@
 created: 20240529031718057
-hashtag_pick: #biology #bioinfo
-modified: 20240602131902604
+hashtag_pick: #video
+modified: 20240605083820406
 skilltag_pick: [[%R: rentrez]]
 tags: TOC hello
 title: Filter by tags
@@ -28,7 +28,7 @@ Select all
 <$list filter={{!!hashtag_pick}} variable=pick>
 <<pick>>
 <$list filter="[<pick>backlinks[]]">
-<$link to={{!!title}}><$view field="title"/></$link>,
+<$link to={{!!title}}><$view field="title"/></$link>
 </$list><br>
 </$list>
 </$list>
@@ -66,7 +66,7 @@ Select all
 <$list filter={{!!skilltag_pick}} variable=pick>
 <<pick>>
 <$list filter="[<pick>backlinks[]]">
-<$link to={{!!title}}><$view field="title"/></$link>,
+<$link to={{!!title}}><$view field="title"/></$link>
 </$list><br>
 </$list>
 </$list>
