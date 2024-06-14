@@ -1,0 +1,15 @@
+created: 20240614085002285
+modified: 20240614094211953
+old: 書籤列
+tags: TOC
+title: RemoveTag
+
+<$set name="oldtag" value=`${ [<currentTiddler>get[old]] }$`>
+<$button>Remove <<oldtag>>
+     <$list filter='[tag<oldtag>]'>
+       <$fieldmangler>
+       <$action-sendmessage $message='tm-remove-tag' $param=<<oldtag>>/>
+       </$fieldmangler>
+     </$list>
+</$button>
+</$set>
