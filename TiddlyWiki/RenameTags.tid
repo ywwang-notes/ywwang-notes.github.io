@@ -1,0 +1,26 @@
+created: 20240512103139498
+modified: 20240512140356342
+replaceby: Work
+search: home
+tags: TOC
+title: RenameTags
+
+|!Search tag: | {{!!search}} |
+|!Replace by: | {{!!replaceby}} |
+
+---
+
+!First step
+!!//Apply the new tag to the following tiddlers//
+<$list filter="[!has[draft.of]tag{!!search}!tag{!!replaceby}sort[created]]">
+<$checkbox tag={{RenameTags!!replaceby}}><$link to={{!!title}}><$view field="title"/></$link></$checkbox>
+</$list>
+
+!Second step
+!!//Remove the old tag from the following tiddlers//
+<$list filter="[!has[draft.of]tag{!!search}tag{!!replaceby}sort[created]]">
+<$checkbox tag={{RenameTags!!search}}> ~~<$link to={{!!title}}><$view field="title"/></$link>~~</$checkbox>
+</$list>
+
+----
+credit: [[Albertononi|https://groups.google.com/g/tiddlywiki/c/OCntQ79DuwM/m/_vYCTYRXfaUJ]]
